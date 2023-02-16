@@ -11,4 +11,4 @@ class OneMemo(models.Model):
     
 
 class Users(AbstractUser):
-    testcol = models.CharField(max_length=50, null=True)
+    pass
