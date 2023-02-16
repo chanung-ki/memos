@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from onememos.models import Users
+from onememos.models import Users, OneMemo
 
 
 class RegisterForm(UserCreationForm):
@@ -14,3 +14,15 @@ class RegisterForm(UserCreationForm):
             "password1",
             "password2",
         )
+
+class MemoForm(forms.ModelForm):
+    class Meta:
+        model = OneMemo
+        fields = '__all__'
+        # fileds = (
+        #     "content",
+        #     "writer",
+        #     "write_date",
+        # )
+        
+        

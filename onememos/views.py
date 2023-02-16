@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from onememos.forms import RegisterForm
+from onememos.forms import RegisterForm, MemoForm
+from onememos.models import OneMemo
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -44,3 +46,28 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+
+# 메모 목록 가져오기
+@login_required
+def get_memo(request):
+    all_memo = OneMemo.objects.all().order_by("-write_date") # 모든 데이터 조회, 내림차순(-표시) 조회
+    return render(request, 'memo_list.html', {'memo_list':all_memo})
+
+
+
+# 메모 작성
+@login_required
+def create_memo(request):
+    if request.method == 'POST':
+        form = MemoForm(request.POST)
+        if form.is_valid():
+            form.save(request)
+            return redirect("get_memo")
+        else:
+            form = MemoForm()
+        return redirect('creat_memo')
+    else:
+        form = MemoForm()
+        return render(request, 'create_memo.html',{"form": form})

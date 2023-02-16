@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onememos.views import login_view, logout_view ,index, register
+from onememos.views import login_view, logout_view ,index, register, get_memo, create_memo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('main', index, name='index'),
     path('register', register, name='register'),
     path('login', login_view, name='login_view'),
     path('logout', logout_view, name='logout_view'),
+    path('get_memo', get_memo, name='get_memo'),
+    path('create_memo', create_memo, name='create_memo'),
+    
 ]

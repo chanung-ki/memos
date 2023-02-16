@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>메인</title>
+    </head>
+
+    <body>
+        <div>
+            <a href='create_memo'>글 작성</a>
+            <a href='main'>메인으로</a>
+        </div>
+        <div>
+            <table>
+            <thead>
+                <tr>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성시간</th>
+                <th>옵션</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for l in memo_list%}
+                <tr>
+                <td>{{ l.content }}</td>
+                <td>{{ l.writer }}</td>
+                <td>{{ l.write_date }}</td>
+                <td>||<a>수정</a>||<a>삭제||</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </body>
+</html>
