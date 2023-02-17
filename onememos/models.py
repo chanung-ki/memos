@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 # Create your models here.
 
 class OneMemo(models.Model):
     content = models.CharField(max_length=100)
-    writer = models.CharField(max_length=50)
+    writer = models.CharField(max_length=100,)
     update_Date = models.DateTimeField(auto_now=True, null=True)
     write_date = models.DateTimeField(auto_now_add=True)
     

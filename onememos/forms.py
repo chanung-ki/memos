@@ -18,11 +18,15 @@ class RegisterForm(UserCreationForm):
 class MemoForm(forms.ModelForm):
     class Meta:
         model = OneMemo
-        fields = '__all__'
-        # fileds = (
-        #     "content",
-        #     "writer",
-        #     "write_date",
-        # )
-        
-        
+        exclude = ['writer',]
+
+    def save(self, request, commit=True):
+        instance = super(MemoForm, self).save(commit=False)
+        instance.writer = request.user.username
+        if commit:
+            instance.save()
+        return instance
+    
+    def update_form(self, request, memo_id):
+        instance = super(MemoForm, self).save(commit=False) 
+        OneMemo.objects.filter(pk=memo_id).update(content=instance.content)

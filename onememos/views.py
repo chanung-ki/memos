@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from onememos.forms import RegisterForm, MemoForm
-from onememos.models import OneMemo
+from onememos.models import OneMemo, Users
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -37,7 +37,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-        return render(request, 'index.html')
+        return redirect('index')
     else:
         return render(request, 'login.html')
 
@@ -71,3 +71,14 @@ def create_memo(request):
     else:
         form = MemoForm()
         return render(request, 'create_memo.html',{"form": form})
+    
+
+# 메모 수정, 삭제
+# @login_required
+# def change_memo(request,action,memo_id):
+#     if request.method == "POST":
+#         pass
+#     elif 
+
+    
+
