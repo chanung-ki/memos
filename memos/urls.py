@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from onememos.views import login_view, logout_view ,index, register, get_memo, create_memo
+from onememos.views import login_view, logout_view ,index, register, get_memo, create_memo, change_memo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('logout', logout_view, name='logout_view'),
     path('get_memo', get_memo, name='get_memo'),
     path('create_memo', create_memo, name='create_memo'),
+    path('memo/<str:action>/<int:memo_id>', change_memo, name='change_memo'),
+    
     
 ]

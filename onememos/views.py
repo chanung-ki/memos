@@ -64,21 +64,35 @@ def create_memo(request):
         form = MemoForm(request.POST)
         if form.is_valid():
             form.save(request)
-            return redirect("get_memo")
+            return redirect('get_memo')
         else:
             form = MemoForm()
         return redirect('creat_memo')
     else:
         form = MemoForm()
-        return render(request, 'create_memo.html',{"form": form})
+        return render(request, 'create_memo.html',{'form': form})
     
 
 # 메모 수정, 삭제
-# @login_required
-# def change_memo(request,action,memo_id):
-#     if request.method == "POST":
-#         pass
-#     elif 
+@login_required
+def change_memo(request, action, memo_id):
+    if request.method == "POST":
+        memo_date = OneMemo.objects.filter(id=memo_id)
+        if memo_date.exists():
+            if action == 'delete':
+                memo_date.delete()
+            elif action == 'update':
+                form = MemoForm(request.POST)
+                form.update_form(request, memo_id)
+        else:
+            msg = '해당 메모를 찾을 수 없습니다.'
+        
+    elif request.method == "GET" and action == 'update':
+        memo_date = OneMemo.objects.filter(pk=memo_id).first()
+        form = MemoForm(instance=memo_date)
+        return render(request, 'create_memo.html', {'form': form, 'is_update': True})
+    
+    return redirect('get_memo')
 
     
 
