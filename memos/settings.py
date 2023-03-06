@@ -27,7 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "onememos.Users"
+# AUTH_USER_MODEL = "onememos.Users"
+
+### ACCOUNT
+# ACCOUNT_AUTHENTICAYION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
 
 # Application definition
 
@@ -77,9 +82,17 @@ WSGI_APPLICATION = 'memos.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "app_db", # 테이블 명
+        "USER" : "root",
+        "PASSWORD" : "67231624",
+        "HOST" : "34.64.211.199", # GCP 인스턴스 ip
+        "PORT" : 3306, # mysql 기본 port
+        "OPTIONS" : {
+            "autocommit" : True,
+            # "charset" : "utf84mb4",
+        }
     }
 }
 
